@@ -1,4 +1,4 @@
-git KnowHow
+KnowHow
 1. $ git init = 폴더 경로를 init값으로 지정
 2. $ git status = 폴더 파일 리스트 및 변경 상태 확인
 3. $ git add 파일명  = commit할 파일 추가 [ .은 모든파일]
