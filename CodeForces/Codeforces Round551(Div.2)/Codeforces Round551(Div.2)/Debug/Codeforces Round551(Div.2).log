@@ -1,0 +1,4 @@
+﻿  A.cpp
+c:\users\nt-yspark\source\repos\codeforces round551(div.2)\codeforces round551(div.2)\a.cpp(7): warning C4305: '초기화 중': '__int64'에서 'int'(으)로 잘립니다.
+c:\users\nt-yspark\source\repos\codeforces round551(div.2)\codeforces round551(div.2)\a.cpp(7): warning C4309: '초기화 중': 상수 값이 잘립니다.
+  Codeforces Round551(Div.2).vcxproj -> C:\Users\NT-ysPARK\source\repos\Codeforces Round551(Div.2)\Debug\Codeforces Round551(Div.2).exe
