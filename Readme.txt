@@ -1,4 +1,47 @@
-KnowHow
+[이것이 Bit Mask다]
+1. n개의 1만들기
+int a=(1<<n)-1;
+
+2. n번째를 1로 세팅
+int a= a | (1<<n);
+
+3. n번째가 1인지 검사
+if(a & (1<<n) )
+
+4. n번째 0으로 세팅
+a = a & (1 << n ) ;
+
+5. n번째 원소를 toggle
+a = a ^ ( 1<<n );
+
+6. 1의 갯수 세기
+(1) Recursive
+int bitCount ( int x ) {
+   if(x==0) return 0;
+   return x%2 + bitCount(x/2);
+}
+
+(2) Linear 신기해서 적어봄.
+int bitCount ( int x ) {
+   int c;
+   int v=n;
+   for ( c = 0; v; c++ )  v &= v-1;
+   return c;
+}
+
+(2-1) Linear2 -> 쉽긴 쉽네
+int bitCount ( int n ) {
+   int x=0;
+   while ( n ) {
+      x+= ( n & 1 );
+      n >>= 1;
+   }
+   return x;
+}
+
+7. 
+
+[KnowHow]
 1. $ git init = 폴더 경로를 init값으로 지정
 2. $ git status = 폴더 파일 리스트 및 변경 상태 확인
 3. $ git add 파일명  = commit할 파일 추가 [ .은 모든파일]
