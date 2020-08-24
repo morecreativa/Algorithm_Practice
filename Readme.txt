@@ -60,3 +60,9 @@ int bitCount ( int n ) {
 
 git꺼로 바뀜 = $ git pull --rebase origin master
                     $ git push origin master
+
+
+[cmd , powershell 명령어]
+1. doskey ls= dir -> ls 명령어 사용 가능
+2. 텍스트 파일 비교 code --diff FILE1 FILE2
+3. 파일 빌드 -> g++ FILE1 -o a.exe
