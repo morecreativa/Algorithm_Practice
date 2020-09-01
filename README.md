@@ -1,9 +1,9 @@
 ## 이것이 Bit Mask다
 - n개의 1만들기
-   int a=(1<<n)-1;
+   <pre><code>int a=(1<<n)-1;</code></pre>
 
 -  n번째를 1로 세팅
-   int a= a | (1<<n);
+   <pre><code>int a= a | (1<<n);</code></pre>
 
 -  n번째가 1인지 검사
    if(a & (1<<n) )
