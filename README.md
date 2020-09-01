@@ -1,20 +1,20 @@
 ## 이것이 Bit Mask다
-- n개의 1만들기
-<pre><code>int a=(1<<n)-1;</code></pre>
-- n번째를 1로 세팅
-<pre><code>int a= a | (1<<n);</code></pre>
+//n개의 1만들기
+int a=(1<<n)-1;
+//n번째를 1로 세팅
+int a= a | (1<<n);
 
-- n번째가 1인지 검사
-   if(a & (1<<n) )
+//n번째가 1인지 검사
+if(a & (1<<n) )
 
-- n번째 0으로 세팅
-   a = a & (1 << n ) ;
+//n번째 0으로 세팅
+a = a & (1 << n ) ;
 
-- n번째 원소를 toggle
-   a = a ^ ( 1<<n );
+//n번째 원소를 toggle
+a = a ^ ( 1<<n );
 
-- 1의 갯수 세기
-   //Recursive
+//1의 갯수 세기
+//Recursive
    int bitCount ( int x ) {
    if(x==0) return 0;
    return x%2 + bitCount(x/2);
