@@ -48,7 +48,7 @@ a = a ^ ( 1<<n );
 
 
 ## GitHub KnowHow
-
+```
    $ git init = 폴더 경로를 init값으로 지정
    
    $ git status = 폴더 파일 리스트 및 변경 상태 확인
@@ -65,7 +65,7 @@ a = a ^ ( 1<<n );
    
    $ git stash = stash라는 곳에 임시 저장해놓고 다른 사람 commit 받을 수 있음
    //(error: Your local changes to the following files would be overwritten by merge) 오류 시 사용
-
+```
 - 초기 설정 = 1 5
 
 - 자기꺼 수정 후 올릴 때 = 3 4 7
