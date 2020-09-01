@@ -1,9 +1,7 @@
 ## 이것이 Bit Mask다  
-
-- n개의 1만들기
 ```
+//n개의 1만들기
 int a=(1<<n)-1;
-```
    
 //n번째를 1로 세팅
 int a= a | (1<<n);
@@ -41,6 +39,8 @@ a = a ^ ( 1<<n );
    }
    return x;
 }
+```
+
 ## cmd , powershell 명령어]
 - doskey ls= dir -> ls 명령어 사용 가능
 - 텍스트 파일 비교 code --diff FILE1 FILE2
