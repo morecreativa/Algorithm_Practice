@@ -1,4 +1,4 @@
-## 이것이 Bit Mask다  
+## 1. 이것이 Bit Mask다  
 ```
 //n개의 1만들기
 int a=(1<<n)-1;
@@ -41,13 +41,13 @@ a = a ^ ( 1<<n );
 }
 ```
 
-## cmd , powershell 명령어]
+## 2. cmd , powershell 명령어]
 - doskey ls= dir -> ls 명령어 사용 가능
 - 텍스트 파일 비교 code --diff FILE1 FILE2
 - 파일 빌드 -> g++ FILE1 -o a.exe
 
 
-## GitHub KnowHow
+## 3. GitHub KnowHow
 ```
    $ git init = 폴더 경로를 init값으로 지정
    
