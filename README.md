@@ -1,5 +1,5 @@
 ## 이것이 Bit Mask다  
-<pre><code>
+
 //n개의 1만들기
 int a=(1<<n)-1;
 //n번째를 1로 세팅
@@ -38,17 +38,28 @@ a = a ^ ( 1<<n );
    }
    return x;
 }
-</code></pre>
-7. 
+## cmd , powershell 명령어]
+- doskey ls= dir -> ls 명령어 사용 가능
+- 텍스트 파일 비교 code --diff FILE1 FILE2
+- 파일 빌드 -> g++ FILE1 -o a.exe
+
 
 ## GitHub KnowHow
+
    $ git init = 폴더 경로를 init값으로 지정
+   
    $ git status = 폴더 파일 리스트 및 변경 상태 확인
+   
    $ git add 파일명  = commit할 파일 추가 [ .은 모든파일]
+   
    $ git commit -m "Push 메세지명" = PS붙여서 commit
+   
    $ git remote add origin [repository] = 저장소 origin으로 설정
+   
    $ git remote -v = 로컬 저장소 원격 저장소 연결
+   
    $ git push / pull origin master = origin에서 master로 설정된 것 push / pull
+   
    $ git stash = stash라는 곳에 임시 저장해놓고 다른 사람 commit 받을 수 있음
    //(error: Your local changes to the following files would be overwritten by merge) 오류 시 사용
 
@@ -61,8 +72,3 @@ a = a ^ ( 1<<n );
 - git꺼로 바뀜 = $ git pull --rebase origin master
                     $ git push origin master
 
-
-## cmd , powershell 명령어]
-- doskey ls= dir -> ls 명령어 사용 가능
-- 텍스트 파일 비교 code --diff FILE1 FILE2
-- 파일 빌드 -> g++ FILE1 -o a.exe
