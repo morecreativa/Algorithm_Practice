@@ -1,4 +1,5 @@
-## 이것이 Bit Mask다
+## 이것이 Bit Mask다  
+<pre><code>
 //n개의 1만들기
 int a=(1<<n)-1;
 //n번째를 1로 세팅
@@ -37,7 +38,7 @@ a = a ^ ( 1<<n );
    }
    return x;
 }
-
+</code></pre>
 7. 
 
 ## GitHub KnowHow
