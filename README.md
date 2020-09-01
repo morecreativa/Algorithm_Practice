@@ -46,7 +46,7 @@ a = a ^ ( 1<<n );
 
 ## GitHub KnowHow
 
-   $ git init //= 폴더 경로를 init값으로 지정
+   $ git init = 폴더 경로를 init값으로 지정
    
    $ git status = 폴더 파일 리스트 및 변경 상태 확인
    
