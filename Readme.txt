@@ -1,4 +1,4 @@
-[이것이 Bit Mask다]
+# 이것이 Bit Mask다
 1. n개의 1만들기
 int a=(1<<n)-1;
 
