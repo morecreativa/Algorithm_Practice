@@ -41,13 +41,14 @@ a = a ^ ( 1<<n );
 }
 ```
 
-### :blue_book: 2. cmd , powershell 명령어]
-- doskey ls= dir -> ls 명령어 사용 가능
-- 텍스트 파일 비교 code --diff FILE1 FILE2
-- 파일 빌드 -> g++ FILE1 -o a.exe
+### :blue_book: cmd , powershell 명령어]
+```
+doskey ls= dir // ls 명령어 사용 가능
+code -d a.txt b.txt //파일 비교
+g++ ${FileFullName} //buile the file
+```
 
-
-### :notebook: 3. GitHub KnowHow
+### :notebook: GitHub KnowHow
 ```
    $ git init = 폴더 경로를 init값으로 지정
    
