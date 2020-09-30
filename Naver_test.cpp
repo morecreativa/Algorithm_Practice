@@ -68,13 +68,3 @@ int solution(int n, vector<vector<int>> edges){
 	}
 	return answer;
 }
-
-int main(){
-	int max_=solution(19,{
-		{0,1},{0,2},{0,3},{1,4},{1,5},{2,6},{3,7},{3,8},
-		{3,9},{4,10},{4,11},{5,12},{5,13},{5,14},{6,15},{6,16},
-		{6,17},{8,18},{8,19}
-	});
-	printf("%d",max_);
-	return 0;
-}
