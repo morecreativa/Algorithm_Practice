@@ -68,3 +68,7 @@ int solution(int n, vector<vector<int>> edges){
 	}
 	return answer;
 }
+
+int main(){
+	return 0;
+}
