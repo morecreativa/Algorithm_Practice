@@ -1,0 +1,4 @@
+﻿  Alarm_Clocks_Everywhere.cpp
+c:\users\nt-yspark\source\repos\edicational codefoces round 63(rated for div. 2)\edicational codefoces round 63(rated for div. 2)\alarm_clocks_everywhere.cpp(100): warning C4244: '인수': '__int64'에서 'const unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\nt-yspark\source\repos\edicational codefoces round 63(rated for div. 2)\edicational codefoces round 63(rated for div. 2)\alarm_clocks_everywhere.cpp(101): warning C4244: '인수': '__int64'에서 'const unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Edicational Codefoces Round 63(Rated for Div. 2).vcxproj -> C:\Users\NT-ysPARK\source\repos\Edicational Codefoces Round 63(Rated for Div. 2)\Debug\Edicational Codefoces Round 63(Rated for Div. 2).exe
