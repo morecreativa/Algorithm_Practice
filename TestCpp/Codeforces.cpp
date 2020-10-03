@@ -47,8 +47,8 @@ int main(){
 }
 #endif
 
-#if 1
-int countBit(unsigned int x){
+#if 0
+LL countBit(unsigned int x){
     int cnt=0;
     while(x>0){
         cnt++;
@@ -65,7 +65,7 @@ int main(){
         for(auto &x : arr) cin>>x;
         map<LL,LL> strMap;
         forn(i,sz(arr)){
-            int bitSize=countBit(arr[i]);
+            LL bitSize=countBit(arr[i]);
             // printf("%d %d\n",bitSize, arr[i]);
             if(strMap.find(bitSize)==strMap.end())
                 strMap.insert({bitSize,1});
@@ -78,6 +78,39 @@ int main(){
         }cout<<answer<<endl;
     }
     return 0;
+}
+
+#endif
+
+#if 1
+
+int main(){
+	int n;
+	scanf("%d",&n);
+	while(n--){
+		int len,q;
+		scanf("%d %d",&len,&q);
+		vector<int> arr(len,0);
+		for(auto &x : arr) cin>> x;
+		arr.push_back(0);
+ 
+		LL answer=0;
+		int start=0,end=0;
+		
+		while(end<len){
+			while(start<len-1 && arr[start]<arr[start+1]){
+				++start;
+				end=start;
+			}
+			while(end<=len-1 && arr[end]>arr[end+1]){
+				++end;
+			}
+			answer+=arr[start]-arr[end];
+			start=end;
+		}
+		printf("%lld\n",answer);
+	}
+	return 0;
 }
 
 #endif
