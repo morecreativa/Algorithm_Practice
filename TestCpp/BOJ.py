@@ -20,7 +20,7 @@ if 1:
             listStr.append(sys.stdin.readline().strip())
         ret(listStr)
 
-# ~
+# programmers Find prime numbers
 if 1:
     def solution(n):
         a = set()
