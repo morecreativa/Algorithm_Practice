@@ -23,6 +23,7 @@ using namespace std;
 #define pb push_back
 #define LL long long
 
+// BOJ 5052
 int main(){
     int N;
     scanf("%d",&N);
@@ -46,3 +47,34 @@ int main(){
     }
     return 0;
 }
+
+// Programmers
+bool isPrimeNumber(int x){
+    if(x<=1) return 0;
+    int answer=0;
+    for(int i=1;i<=x;++i){
+        if(x%i==0) {
+            if(answer>2) return false;
+            answer+=2;
+        }
+    }
+    return true;
+}
+int solution(string numbers) {
+    sort(numbers.begin(),numbers.end());
+    int answer = 0;
+    map<int,int> intMap;
+    do{
+        for(int i=1;i<=numbers.length();++i){
+            int temp=stoi(numbers.substr(0,i));
+            if(intMap.find(temp)==intMap.end()){
+                intMap.insert({temp,1});   
+                // if()
+                if(isPrimeNumber(temp)){
+                    answer++;
+                }
+            }else continue;
+        }
+    }while(next_permutation(numbers.begin(),numbers.end()));
+    return answer;
+}//next permutation don't show all permutation
