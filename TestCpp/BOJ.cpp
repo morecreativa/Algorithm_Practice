@@ -102,3 +102,33 @@ vector<int> solution(int brown, int yellow) {
     return answer;
 }
 #endif
+
+#if 0
+bool possible(vector<int> &times, LL t, int target){
+    LL ok =0;
+    for(int i=0;i<times.size();++i){
+        ok+=t/times[i];
+    }
+    return (ok >= target);
+}
+
+LL search(vector<int> & times, LL start,LL end, LL target, LL answer){
+    if(start > end) return answer;
+    
+    LL mid = (start + end) /2;
+    if(possible(times,mid,target)){
+        answer=min(mid, answer);
+        return search(times,start, mid-1, target,answer);
+    }else return search(times,mid+1,end,target,answer);
+}
+
+long long solution(int n, vector<int> times) {
+    long long answer = 0;
+    sort(times.begin(),times.end());
+    
+    LL low=(LL)n * (LL)times.front()/times.size();
+    LL high=(LL)n * (LL)times.back();
+    
+    return search(times, low, high, n, numeric_limits<LL>::max());
+}
+#endif
