@@ -7,128 +7,209 @@
 #include <queue>
 #include <cmath>
 #include <sstream>
+#include <map>
+#include <bitset>
 #include <stack>
 #include <cstring>
- 
+
 using namespace std;
- 
+
 #define INF 987654321
-#define forn(i,n) for(int i=0;i<(int)n;++i)
-#define formy(i,r,l) for(int i=r;i<=(int)l;++i)
-#define pii pair<int,int>
+#define forn(i, n) for (int i = 0; i < (int)n; ++i)
+#define formy(i, r, l) for (int i = r; i <= (int)l; ++i)
+#define pii pair<int, int>
 #define sz(a) int((a).size())
 #define mp make_pair
 #define LL long long
 #define len(a) int((a).length())
 #define pb push_back
-#define LL long long
 
-// BOJ 5052
+// Round 672
 #if 0
 int main(){
-    int N;
-    scanf("%d",&N);
-    while(N--){
-        int test_case;
-        scanf("%d",&test_case);
-        string answer="";
-        bool flag=true;
-        vector<string> srtVector(test_case);
-        for(auto &x : srtVector) cin>>x;
-        sort(srtVector.begin(),srtVector.end());
-        forn(i,sz(srtVector)-1){
-            if(len(srtVector[i]) < len(srtVector[i+1]) && 
-                srtVector[i]==srtVector[i+1].substr(0,len(srtVector[i]))){
-                flag=false;
+    int n; cin>>n;
+    while(n--){
+        int test_case; cin>>test_case;
+        vector<int> arr(test_case);
+        for(auto &x : arr) cin>>x; 
+        int ok=1;   
+        forn(i,sz(arr)-1){
+            if(arr[i] <= arr[i+1]){
+                ok=0;
                 break;
-                }
+            }
         }
-        answer= (flag ? "YES":"NO");
+        string answer=(ok ? "NO" : "YES");
         cout<<answer<<endl;
     }
     return 0;
 }
-#endif 
-
-// Programmers Find Prime numbers
-#if 0
-bool isPrimeNumber(int x){
-    if(x<=1) return 0;
-    int answer=0;
-    for(int i=1;i<=x;++i){
-        if(x%i==0) {
-            if(answer>2) return false;
-            answer+=2;
-        }
-    }
-    return true;
-}
-int solution(string numbers) {
-    sort(numbers.begin(),numbers.end());
-    int answer = 0;
-    map<int,int> intMap;
-    do{
-        for(int i=1;i<=numbers.length();++i){
-            int temp=stoi(numbers.substr(0,i));
-            if(intMap.find(temp)==intMap.end()){
-                intMap.insert({temp,1});   
-                // if()
-                if(isPrimeNumber(temp)){
-                    answer++;
-                }
-            }else continue;
-        }
-    }while(next_permutation(numbers.begin(),numbers.end()));
-    return answer;
-}//next permutation don't show all permutation
 #endif
 
-// Programmers Carpet
+#if 0
+LL countBit(unsigned int x){
+    int cnt=0;
+    while(x>0){
+        cnt++;
+        x >>=1;
+    }
+    return cnt;
+}
+
+int main(){
+    LL n; cin>>n;
+    while(n--){
+        LL k; cin>>k;
+        vector<LL> arr(k);
+        for(auto &x : arr) cin>>x;
+        map<LL,LL> strMap;
+        forn(i,sz(arr)){
+            LL bitSize=countBit(arr[i]);
+            // printf("%d %d\n",bitSize, arr[i]);
+            if(strMap.find(bitSize)==strMap.end())
+                strMap.insert({bitSize,1});
+            else strMap[bitSize]++;
+        }
+        LL answer=0;
+        for(auto x : strMap){
+            // printf("%d %d\n",x.first,x.second);
+            answer+=x.second*(x.second-1)/2;
+        }cout<<answer<<endl;
+    }
+    return 0;
+}
+
+#endif
+
+#if 0
+
+int main(){
+	int n;
+	scanf("%d",&n);
+	while(n--){
+		int len,q;
+		scanf("%d %d",&len,&q);
+		vector<int> arr(len,0);
+		for(auto &x : arr) cin>> x;
+		arr.push_back(0);
+ 
+		LL answer=0;
+		int start=0,end=0;
+		
+		while(end<len){
+			while(start<len-1 && arr[start]<arr[start+1]){
+				++start;
+				end=start;
+			}
+			while(end<=len-1 && arr[end]>arr[end+1]){
+				++end;
+			}
+			answer+=arr[start]-arr[end];
+			start=end;
+		}
+		printf("%lld\n",answer);
+	}
+	return 0;
+}
+
+#endif
+
 #if 1
-bool compare(const int &a , const int &b){
-    return a>b;
+
+pii SHARK[20][20];
+int head[20][20];
+int dx[5]{0,-1,1,0,0};
+int dy[5]{0,0,0,-1,1};
+int chageDir[401][5][4];
+int curDir[401];
+
+int N,M,K;
+
+bool rangeCheck(int nx,int ny){
+    return (nx>=0 && nx<N && ny>=0 && ny<N);
 }
 
-vector<int> solution(int brown, int yellow) {
-    vector<int> answer;
-    for(int i=1;i*i<=yellow;++i){
-        if(yellow%i==0 && (i+yellow/i)*2+4==brown){
-            answer.push_back(i+2);
-            answer.push_back(yellow/i+2);
-            sort(answer.begin(),answer.end(),compare);
-            break;
+int main(){
+    cin>>N>>M>>K;
+    forn(i,N) forn(j,N){
+        cin >> SHARK[i][j].first;
+        head[i][j]=SHARK[i][j].first;
+        if(head[i][j]!=0) SHARK[i][j].second=K;
+        else SHARK[i][j].second=0;
+    }
+    formy(i,1,M) cin>> curDir[i];
+    formy(i,1,M){
+        formy(j,1,4)
+            forn(l,4){
+                cin>>chageDir[i][j][l];
+            }
+    }
+
+    int time=0;
+    while(time <1000){
+        time++;
+        /* move with priority */
+        queue<pii> q;
+        forn(i,N) forn(j,N){
+            if(head[i][j]!=0) q.push({i,j});
         }
+        while(!q.empty()){
+            int i=q.front().first;
+            int j=q.front().second; q.pop();
+
+            bool flag=true;  
+            forn(l,4){
+                int nx=i+dx[chageDir[head[i][j]][curDir[head[i][j]]][l]];
+                int ny=j+dy[chageDir[head[i][j]][curDir[head[i][j]]][l]];
+        
+                if(rangeCheck(nx,ny) && SHARK[nx][ny].first==0){
+                    flag=false;
+                    if(head[nx][ny]==0) head[nx][ny]=head[i][j];
+                    else if(head[nx][ny] > head[i][j]){
+                        head[nx][ny]=head[i][j];
+                        --M;
+                    }
+                    else if(head[nx][ny] < head[i][j]){
+                        --M;
+                    }
+                    if(M==1){printf("%d",time); return 0;}
+                    curDir[head[i][j]]=chageDir[head[i][j]][curDir[head[i][j]]][l];
+                    head[i][j]=0;
+                    break;
+                }
+            }
+            /* 빈칸이 없을 때 */
+            if(flag){
+                forn(l,4){
+                    int nx=i+dx[chageDir[head[i][j]][curDir[head[i][j]]][l]];
+                    int ny=j+dy[chageDir[head[i][j]][curDir[head[i][j]]][l]];
+
+                    if(rangeCheck(nx,ny) && SHARK[nx][ny].first==head[i][j]){
+                        head[nx][ny]=head[i][j];
+                        head[i][j]=0;
+                        curDir[head[nx][ny]]=chageDir[head[nx][ny]][curDir[head[nx][ny]]][l];
+                        break;
+                    }
+                }
+            }
+        }
+
+        /* spend time */
+        forn(i,N) forn(j,N)
+            if(SHARK[i][j].second!=0) {
+                SHARK[i][j].second--;
+                if(SHARK[i][j].second==0) SHARK[i][j].first=0;
+            }
+        
+        /* Final Plus Fragment */
+        forn(i,N) forn(j,N){
+            if(head[i][j]!=0) SHARK[i][j]={head[i][j],K};
+        }
+        
+        if(M==1) break;
     }
-    return answer;
-}
-#endif
-
-#if 0
-bool possible(vector<int> &times, LL t, int target){
-    LL ok =0;
-    for(int i=0;i<times.size();++i){
-        ok+=t/times[i];
-    }
-    return (ok >= target);
+    printf("%d",-1);
+    return 0;
 }
 
-LL search(vector<int> & times, LL start,LL end, LL target, LL answer){
-    if(start > end) return answer;
-    
-    LL mid = (start + end) /2;
-    if(possible(times,mid,target)){
-        answer=min(mid, answer);
-        return search(times,start, mid-1, target,answer);
-    }else return search(times,mid+1,end,target,answer);
-}
-
-long long solution(int n, vector<int> times) {
-    long long answer = 0;
-    sort(times.begin(),times.end());
-    
-    LL low=(LL)n * (LL)times.front()/times.size();
-    LL high=(LL)n * (LL)times.back();
-    
-    return search(times, low, high, n, numeric_limits<LL>::max());
-}
 #endif
