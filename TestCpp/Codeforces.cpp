@@ -23,7 +23,6 @@ using namespace std;
 #define LL long long
 #define len(a) int((a).length())
 #define pb push_back
-#define LL long long
 
 // Round 672
 #if 0
@@ -82,8 +81,7 @@ int main(){
 
 #endif
 
-#if 1
-
+#if 0
 int main(){
 	int n;
 	scanf("%d",&n);
