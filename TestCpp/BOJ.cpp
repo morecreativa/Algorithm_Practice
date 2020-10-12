@@ -156,9 +156,9 @@ int main(){
 #endif
 
 // 5644
-
 #if 1
 
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -167,88 +167,93 @@ int main(){
 using namespace std;
 
 // number, chargePower
-vector<pair<int,int>> map[11][11];
-int dx[4]{-1,1,0,0};
-int dy[4]{0,0,-1,1};
+vector<pair<int, int>> map[11][11];
+int dx[5] = { 0,-1,0,1,0 };
+int dy[5] = { 0,0,1,0,-1 };
 
-void fillIn(int y,int x,int cost, int p,int idx){
-    map[x][y].push_back({idx,p});
-    for(int i=0;i<11;++i){
-        for(int j=0;j<11;++j){
-            int xcost=(i-x <0 ? x-i : i-x); 
-            int ycost=(j-y <0 ? y-j : j-y);
-            if(xcost+ycost <= cost)
-                map[i][j].push_back({idx,p});
+void fillIn(int y, int x, int cost, int p, int idx) {
+    map[x][y].push_back({ idx,p });
+    for (int i = 0; i < 11; ++i) {
+        for (int j = 0; j < 11; ++j) {
+            int xcost = (i - x < 0 ? x - i : i - x);
+            int ycost = (j - y < 0 ? y - j : j - y);
+            if (xcost + ycost <= cost)
+                map[i][j].push_back({ idx,p });
         }
     }
-    return;   
+    return;
 }
 
-int main(){
-    int T; cin>>T;
-    for(int test_case=0; test_case<T;test_case++){
-        int asum=0,bsum=0,divsum=0;
-        int M,A;
-        cin>>M>>A;
+int main() {
+    // freopen("sample_input.txt", "r", stdin);
+    int T; cin >> T;
+    for (int test_case = 0; test_case < T; test_case++) {
+        // map init
+        for (int i = 0; i < 11; ++i)
+            for (int j = 0; j < 11; ++j) map[i][j].clear();
+        int asum = 0, bsum = 0, divsum = 0;
+        int M, A;
+        cin >> M >> A;
         vector<int> dirA(M);    vector<int> dirB(M);
-        for(auto &x : dirA) cin>> x;
-        for(auto &x : dirB) cin>> x;
-        
-        for(int i=1;i<=A;++i){
-            int y,x,num,p;
-            cin>>y>>x>>num>>p;
-            fillIn(y,x,num,p,i);
+        for (auto& x : dirA) cin >> x;
+        for (auto& x : dirB) cin >> x;
+
+        for (int i = 1; i <= A; ++i) {
+            int y, x, num, p;
+            cin >> y >> x >> num >> p;
+            fillIn(y, x, num, p, i);
         }
-        pair<int,int> bcur={10,10};
-        pair<int,int> acur={1,1};
-        for(int i=0;i<=M;++i){
+        pair<int, int> bcur = { 10,10 };
+        pair<int, int> acur = { 1,1 };
+        for (int i = 0; i <= M; ++i) {
             //check
-            vector<pair<int,int>> numberOfAcharge,numberOfBcharge;
+            vector<pair<int, int>> numberOfAcharge, numberOfBcharge;
             //A
-            if(map[acur.first][acur.second].size()!=0)
-                numberOfAcharge=map[acur.first][acur.second];
+            if (map[acur.first][acur.second].size() != 0)
+                numberOfAcharge = map[acur.first][acur.second];
             //B
-            if(map[bcur.first][bcur.second].size()!=0)
-                numberOfBcharge=map[bcur.first][bcur.second];
+            if (map[bcur.first][bcur.second].size() != 0)
+                numberOfBcharge = map[bcur.first][bcur.second];
             //push sameNumber
-            vector<pair<int,int>> sameNumber;
-            for(int a=0;a<(int)numberOfBcharge.size();a++){
-                for(int b=0;b<(int)numberOfAcharge.size();b++){
-                    if(numberOfAcharge[b].first==numberOfBcharge[a].first) 
-                        sameNumber.push_back({numberOfBcharge[a].first,numberOfBcharge[a].second});
+            vector<pair<int, int>> sameNumber;
+            for (int a = 0; a < (int)numberOfBcharge.size(); a++) {
+                for (int b = 0; b < (int)numberOfAcharge.size(); b++) {
+                    if (numberOfAcharge[b].first == numberOfBcharge[a].first)
+                        sameNumber.push_back({ numberOfBcharge[a].first,numberOfBcharge[a].second });
                 }
             }
             //Not in same Charger
             //if there is no same number just plus the number
-            if(sameNumber.size()==0){
-                int maxPower=-1;
-                for(int a=0;a<(int)numberOfAcharge.size();++a){
-                    maxPower=max(maxPower,numberOfAcharge[a].second);
-                } asum+=maxPower;
-                maxPower=-1;
-                for(int b=0;b<(int)numberOfBcharge.size();++b){
-                    maxPower=max(maxPower,numberOfBcharge[b].second);
-                } bsum+=maxPower;
-            }else{
-                int midMax=-1;
-                for(int a=0;a<(int)sameNumber.size();++a)
-                    midMax=max(midMax,sameNumber[a].second);
-                int wholeMax=-1;
-                for(int a=0;a<(int)numberOfBcharge.size();a++){
-                    for(int b=0;b<(int)numberOfAcharge.size();b++){
-                        wholeMax=max(wholeMax,numberOfAcharge[b].second+numberOfBcharge[a].second);
+            if (sameNumber.size() == 0) {
+                int maxPower = 0;
+                for (int a = 0; a < (int)numberOfAcharge.size(); ++a) {
+                    maxPower = max(maxPower, numberOfAcharge[a].second);
+                } asum += maxPower;
+                maxPower = 0;
+                for (int b = 0; b < (int)numberOfBcharge.size(); ++b) {
+                    maxPower = max(maxPower, numberOfBcharge[b].second);
+                } bsum += maxPower;
+            }
+            else {
+                int midMax = 0;
+                for (int a = 0; a < (int)sameNumber.size(); ++a)
+                    midMax = max(midMax, sameNumber[a].second);
+                int wholeMax = 0;
+                for (int a = 0; a < (int)numberOfBcharge.size(); a++) {
+                    for (int b = 0; b < (int)numberOfAcharge.size(); b++) {
+                        if (numberOfAcharge[b].second != numberOfBcharge[a].second)
+                            wholeMax = max(wholeMax, numberOfAcharge[b].second + numberOfBcharge[a].second);
                     }
                 }
-                divsum+=max(midMax,wholeMax);
+                divsum += max(midMax, wholeMax);
             }
-            if(i==M) break;
-            bcur={bcur.first+dx[dirB[i]],bcur.second+dy[dirB[i]]};
-            acur={acur.first+dx[dirA[i]],acur.second+dy[dirA[i]]};
+            if (i == M) break;
+            bcur = { bcur.first + dx[dirB[i]],bcur.second + dy[dirB[i]] };
+            acur = { acur.first + dx[dirA[i]],acur.second + dy[dirA[i]] };
         }
-        cout<<'#'<<test_case+1<<' '<<asum+bsum+divsum<<endl;
+        cout << '#' << test_case + 1 << ' ' << asum + bsum + divsum << endl;
     }
     return 0;
 }
-
 
 #endif 0
