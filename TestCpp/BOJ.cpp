@@ -187,12 +187,12 @@ void fillIn(int y,int x,int cost, int p,int idx){
 int main(){
     int T; cin>>T;
     for(int test_case=0; test_case<T;test_case++){
-        int asum=0,bsum=0;
+        int asum=0,bsum=0,divsum=0;
         int M,A;
         cin>>M>>A;
         vector<int> dirA(M);    vector<int> dirB(M);
-        for(auto &x : dirA) cin>> dirA;
-        for(auto &x : dirA) cin>> dirB;
+        for(auto &x : dirA) cin>> x;
+        for(auto &x : dirB) cin>> x;
         
         for(int i=1;i<=A;++i){
             int y,x,num,p;
@@ -203,7 +203,7 @@ int main(){
         pair<int,int> acur={1,1};
         for(int i=0;i<=M;++i){
             //check
-            vector<pair<int,int> numberOfAcharge,numberOfBcharge;
+            vector<pair<int,int>> numberOfAcharge,numberOfBcharge;
             //A
             if(map[acur.first][acur.second].size()!=0)
                 numberOfAcharge=map[acur.first][acur.second];
@@ -212,37 +212,43 @@ int main(){
                 numberOfBcharge=map[bcur.first][bcur.second];
             //push sameNumber
             vector<pair<int,int>> sameNumber;
-            numberOfAcharge.sort(numberOfAcharge.begin(),numberOfAcharge.end());
-            numberOfBcharge.sort(numberOfBcharge.begin(),numberOfBcharge.end());
-            for(int a=0;a<numberOfBcharge.size();a++){
-                for(int b=0;b<numberOfAcharge.size();b++){
-                    if(numberOfAcharge[b]==numberOfBcharge[a]) 
-                        sameNumber.push_back(numberOfBcharge[a].first);
+            for(int a=0;a<(int)numberOfBcharge.size();a++){
+                for(int b=0;b<(int)numberOfAcharge.size();b++){
+                    if(numberOfAcharge[b].first==numberOfBcharge[a].first) 
+                        sameNumber.push_back({numberOfBcharge[a].first,numberOfBcharge[a].second});
                 }
             }
             //Not in same Charger
             //if there is no same number just plus the number
             if(sameNumber.size()==0){
                 int maxPower=-1;
-                for(int a=0;a<numberOfAcharge.size();++a){
+                for(int a=0;a<(int)numberOfAcharge.size();++a){
                     maxPower=max(maxPower,numberOfAcharge[a].second);
                 } asum+=maxPower;
                 maxPower=-1;
-                for(int b=0;b<numberOfBcharge.size();++b){
+                for(int b=0;b<(int)numberOfBcharge.size();++b){
                     maxPower=max(maxPower,numberOfBcharge[b].second);
                 } bsum+=maxPower;
             }else{
                 int midMax=-1;
-                for(int a=0;a<sameNumber.size();++a)
-                    midMax=max(midMax,sameNumber[a].second/2);
+                for(int a=0;a<(int)sameNumber.size();++a)
+                    midMax=max(midMax,sameNumber[a].second);
+                int wholeMax=-1;
+                for(int a=0;a<(int)numberOfBcharge.size();a++){
+                    for(int b=0;b<(int)numberOfAcharge.size();b++){
+                        wholeMax=max(wholeMax,numberOfAcharge[b].second+numberOfBcharge[a].second);
+                    }
+                }
+                divsum+=max(midMax,wholeMax);
             }
             if(i==M) break;
             bcur={bcur.first+dx[dirB[i]],bcur.second+dy[dirB[i]]};
             acur={acur.first+dx[dirA[i]],acur.second+dy[dirA[i]]};
         }
-        cout<<'#'<<test_case+1<<' '<<asum+bsum<<endl;
+        cout<<'#'<<test_case+1<<' '<<asum+bsum+divsum<<endl;
     }
     return 0;
 }
+
 
 #endif 0
