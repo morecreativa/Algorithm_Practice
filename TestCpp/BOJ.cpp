@@ -156,7 +156,7 @@ int main(){
 #endif
 
 // 5644 swexpertAcademy
-#if 1
+#if 0
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
@@ -255,5 +255,120 @@ int main() {
     }
     return 0;
 }
+
+#endif 0
+
+// 2383
+#if 1
+
+#include <cstdio>
+#include <vector>
+#include <cmath>
+using namespace std;
+struct stair_info {
+    int r;
+    int c;
+    int h;
+};
+struct person_info {
+    int r;
+    int c;
+    int d;
+    int t;
+};
+ 
+int n = 0;
+int n_people = 0;
+vector<person_info> person;
+vector<stair_info> stair;
+int ans = 987654321;
+ 
+void sim() {
+    vector<int> rest_time[2];
+    int game_time = 0;
+    for (int i = 0; i < n_people; i++) {
+        rest_time[person[i].d].push_back(abs(person[i].r-stair[person[i].d].r) + abs(person[i].c - stair[person[i].d].c));
+    }
+ 
+    for (int i = 0; i < 2; i++) {
+        if (rest_time[i].size()) {
+            for (int a = 0; a < rest_time[i].size() - 1; a++) {
+                for (int b = a + 1; b < rest_time[i].size(); b++) {
+                    if (rest_time[i][a] > rest_time[i][b]) {
+                        swap(rest_time[i][a], rest_time[i][b]);
+                    }
+                }
+            }
+        }
+    }
+ 
+    for (int i = 0; i < 2; i++) {
+        for (int a = 0; a < rest_time[i].size(); a++) {
+            if (a < 3) {
+                rest_time[i][a] += (stair[i].h + 1);
+            }
+            else {
+                if (rest_time[i][a] < rest_time[i][a - 3]) {
+                    rest_time[i][a] = rest_time[i][a - 3] + stair[i].h;
+                }
+ 
+                else {
+                    rest_time[i][a] += (stair[i].h + 1);
+                }
+            }
+        }
+    }
+     
+    for (int i = 0; i < 2; i++) {
+        if (rest_time[i].size()) {
+            if (game_time < rest_time[i][rest_time[i].size() - 1]) {
+                game_time = rest_time[i][rest_time[i].size() - 1];
+            }
+        }
+    }
+ 
+    if (ans > game_time) ans = game_time;
+}
+ 
+void select(int idx) {
+    if (idx == n_people) {
+        sim();
+    }
+    else {
+        person[idx].d = 0;
+        select(idx + 1);
+        person[idx].d = 1;
+        select(idx + 1);
+    }
+}
+ 
+int main() {
+    int T = 0;
+    int data_in = 0;
+    scanf("%d", &T);
+    for (int t = 1; t <= T; t++) {
+        ans = 987654321;
+        stair.clear();
+        person.clear();
+        scanf("%d", &n);
+        for (int i= 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                scanf("%d", &data_in);
+                if (data_in == 1) {
+                    person.push_back({ i, j, 0, 0});
+                }
+                else if (data_in > 1) {
+                    stair.push_back({ i,j, data_in });
+                }
+            }
+        }
+        n_people = person.size();
+        select(0);
+        printf("#%d %d\n", t, ans);
+        fflush(stdout);
+    }
+    return 0;
+}
+About
 
 #endif 0
