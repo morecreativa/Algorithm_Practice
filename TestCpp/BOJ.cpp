@@ -259,7 +259,7 @@ int main() {
 #endif 0
 
 // 2383
-#if 1
+#if 0
 
 #include <cstdio>
 #include <vector>
@@ -372,3 +372,20 @@ int main() {
 About
 
 #endif 0
+
+//Fasoo Coding Test No 1.
+#if 0
+int solution(string s, vector<int> nodeNumber){
+    // Using Stack
+    vector<int> answer;
+    return answer;
+}
+#endif
+
+//Fasoo Coding Test No 2.
+#if 0
+int solution(vector<string> BankNumber){
+    vector<int> answer;
+    return answer;
+}
+#endif
