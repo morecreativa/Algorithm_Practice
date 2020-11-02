@@ -375,9 +375,29 @@ About
 
 //Fasoo Coding Test No 1.
 #if 0
+int arr[300001];
+
+bool comp(const int &a, const int &b){
+    return a>b;
+}
+
 int solution(string s, vector<int> nodeNumber){
     // Using Stack
     vector<int> answer;
+    stack<int> st;
+    forn(i,300001) arr[i]=0;
+    for(int i=0;i<s.length();++i){
+        if(s[i]=='{') st.push(i);
+        else if(s[i]=='}'){
+            arr[i]=st.top();
+            arr[st.top()]=arr[i];
+            st.pop();
+        }
+    }
+    for(int i=0;i<nodeNumber.size();++i)}
+        answer.push_back(arr[nodeNumber[i]]);
+    }
+    sort(answer.begin(),answer.end(),comp);
     return answer;
 }
 #endif
