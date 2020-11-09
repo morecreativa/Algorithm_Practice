@@ -155,9 +155,257 @@ int main(){
 
 #endif
 
-// NHN Pretest 1
-#if 1
+// 5644 swexpertAcademy
+#if 0
 
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
 
+using namespace std;
 
-#endif 
+// number, chargePower
+vector<pair<int, int>> map[11][11];
+int dx[5] = { 0,-1,0,1,0 };
+int dy[5] = { 0,0,1,0,-1 };
+
+void fillIn(int y, int x, int cost, int p, int idx) {
+    map[x][y].push_back({ idx,p });
+    for (int i = 0; i < 11; ++i) {
+        for (int j = 0; j < 11; ++j) {
+            int xcost = (i - x < 0 ? x - i : i - x);
+            int ycost = (j - y < 0 ? y - j : j - y);
+            if (xcost + ycost <= cost)
+                map[i][j].push_back({ idx,p });
+        }
+    }
+    return;
+}
+
+int main() {
+    // freopen("sample_input.txt", "r", stdin);
+    int T; cin >> T;
+    for (int test_case = 0; test_case < T; test_case++) {
+        // map init
+        for (int i = 0; i < 11; ++i)
+            for (int j = 0; j < 11; ++j) map[i][j].clear();
+        int asum = 0, bsum = 0, divsum = 0;
+        int M, A;
+        cin >> M >> A;
+        vector<int> dirA(M);    vector<int> dirB(M);
+        for (auto& x : dirA) cin >> x;
+        for (auto& x : dirB) cin >> x;
+
+        for (int i = 1; i <= A; ++i) {
+            int y, x, num, p;
+            cin >> y >> x >> num >> p;
+            fillIn(y, x, num, p, i);
+        }
+        pair<int, int> bcur = { 10,10 };
+        pair<int, int> acur = { 1,1 };
+        for (int i = 0; i <= M; ++i) {
+            //check
+            vector<pair<int, int>> numberOfAcharge, numberOfBcharge;
+            //A
+            if (map[acur.first][acur.second].size() != 0)
+                numberOfAcharge = map[acur.first][acur.second];
+            //B
+            if (map[bcur.first][bcur.second].size() != 0)
+                numberOfBcharge = map[bcur.first][bcur.second];
+            //push sameNumber
+            vector<pair<int, int>> sameNumber;
+            for (int a = 0; a < (int)numberOfBcharge.size(); a++) {
+                for (int b = 0; b < (int)numberOfAcharge.size(); b++) {
+                    if (numberOfAcharge[b].first == numberOfBcharge[a].first)
+                        sameNumber.push_back({ numberOfBcharge[a].first,numberOfBcharge[a].second });
+                }
+            }
+            //Not in same Charger
+            //if there is no same number just plus the number
+            if (sameNumber.size() == 0) {
+                int maxPower = 0;
+                for (int a = 0; a < (int)numberOfAcharge.size(); ++a) {
+                    maxPower = max(maxPower, numberOfAcharge[a].second);
+                } asum += maxPower;
+                maxPower = 0;
+                for (int b = 0; b < (int)numberOfBcharge.size(); ++b) {
+                    maxPower = max(maxPower, numberOfBcharge[b].second);
+                } bsum += maxPower;
+            }
+            else {
+                int midMax = 0;
+                for (int a = 0; a < (int)sameNumber.size(); ++a)
+                    midMax = max(midMax, sameNumber[a].second);
+                int wholeMax = 0;
+                for (int a = 0; a < (int)numberOfBcharge.size(); a++) {
+                    for (int b = 0; b < (int)numberOfAcharge.size(); b++) {
+                        if (numberOfAcharge[b].second != numberOfBcharge[a].second)
+                            wholeMax = max(wholeMax, numberOfAcharge[b].second + numberOfBcharge[a].second);
+                    }
+                }
+                divsum += max(midMax, wholeMax);
+            }
+            if (i == M) break;
+            bcur = { bcur.first + dx[dirB[i]],bcur.second + dy[dirB[i]] };
+            acur = { acur.first + dx[dirA[i]],acur.second + dy[dirA[i]] };
+        }
+        cout << '#' << test_case + 1 << ' ' << asum + bsum + divsum << endl;
+    }
+    return 0;
+}
+
+#endif 0
+
+// 2383
+#if 0
+
+#include <cstdio>
+#include <vector>
+#include <cmath>
+using namespace std;
+struct stair_info {
+    int r;
+    int c;
+    int h;
+};
+struct person_info {
+    int r;
+    int c;
+    int d;
+    int t;
+};
+ 
+int n = 0;
+int n_people = 0;
+vector<person_info> person;
+vector<stair_info> stair;
+int ans = 987654321;
+ 
+void sim() {
+    vector<int> rest_time[2];
+    int game_time = 0;
+    for (int i = 0; i < n_people; i++) {
+        rest_time[person[i].d].push_back(abs(person[i].r-stair[person[i].d].r) + abs(person[i].c - stair[person[i].d].c));
+    }
+ 
+    for (int i = 0; i < 2; i++) {
+        if (rest_time[i].size()) {
+            for (int a = 0; a < rest_time[i].size() - 1; a++) {
+                for (int b = a + 1; b < rest_time[i].size(); b++) {
+                    if (rest_time[i][a] > rest_time[i][b]) {
+                        swap(rest_time[i][a], rest_time[i][b]);
+                    }
+                }
+            }
+        }
+    }
+ 
+    for (int i = 0; i < 2; i++) {
+        for (int a = 0; a < rest_time[i].size(); a++) {
+            if (a < 3) {
+                rest_time[i][a] += (stair[i].h + 1);
+            }
+            else {
+                if (rest_time[i][a] < rest_time[i][a - 3]) {
+                    rest_time[i][a] = rest_time[i][a - 3] + stair[i].h;
+                }
+ 
+                else {
+                    rest_time[i][a] += (stair[i].h + 1);
+                }
+            }
+        }
+    }
+     
+    for (int i = 0; i < 2; i++) {
+        if (rest_time[i].size()) {
+            if (game_time < rest_time[i][rest_time[i].size() - 1]) {
+                game_time = rest_time[i][rest_time[i].size() - 1];
+            }
+        }
+    }
+ 
+    if (ans > game_time) ans = game_time;
+}
+ 
+void select(int idx) {
+    if (idx == n_people) {
+        sim();
+    }
+    else {
+        person[idx].d = 0;
+        select(idx + 1);
+        person[idx].d = 1;
+        select(idx + 1);
+    }
+}
+ 
+int main() {
+    int T = 0;
+    int data_in = 0;
+    scanf("%d", &T);
+    for (int t = 1; t <= T; t++) {
+        ans = 987654321;
+        stair.clear();
+        person.clear();
+        scanf("%d", &n);
+        for (int i= 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                scanf("%d", &data_in);
+                if (data_in == 1) {
+                    person.push_back({ i, j, 0, 0});
+                }
+                else if (data_in > 1) {
+                    stair.push_back({ i,j, data_in });
+                }
+            }
+        }
+        n_people = person.size();
+        select(0);
+        printf("#%d %d\n", t, ans);
+        fflush(stdout);
+    }
+    return 0;
+}
+About
+
+#endif 0
+
+//Fasoo Coding Test No 1.
+#if 0
+int arr[300001];
+
+bool comp(const int &a, const int &b){
+    return a>b;
+}
+
+int solution(string s, vector<int> nodeNumber){
+    // Using Stack
+    vector<int> answer;
+    stack<int> st;
+    forn(i,300001) arr[i]=0;
+    for(int i=0;i<s.length();++i){
+        if(s[i]=='{') st.push(i);
+        else if(s[i]=='}'){
+            arr[i]=st.top();
+            arr[st.top()]=arr[i];
+            st.pop();
+        }
+    }
+    for(int i=0;i<nodeNumber.size();++i){
+        answer.push_back(arr[nodeNumber[i]]);
+    }
+    sort(answer.begin(),answer.end(),comp);
+    return answer;
+}
+#endif
+
+//Fasoo Coding Test No 2.
+#if 0
+int solution(vector<string> BankNumber){
+    vector<int> answer;
+    return answer;
+}
+#endif
