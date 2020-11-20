@@ -62,7 +62,7 @@ int solution(vector<int> &A){
 
 #endif
 
-#if 1
+#if 0
 
 int findGcdWithUclid(int x,int y){
     while(y!=0){

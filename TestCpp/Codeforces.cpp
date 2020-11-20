@@ -112,3 +112,10 @@ int main(){
 }
 
 #endif
+
+// Educational Codeforces Round 98(Rated for Div.2)
+#if 1
+int main(){
+    
+}
+#endif
