@@ -1,10 +1,29 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <sstream>
+#include <stdio.h>
+#include <vector>
 #include <string>
 #include <algorithm>
-
+#include <queue>
+#include <cmath>
+#include <sstream>
+#include <stack>
+#include <cstring>
+ 
 using namespace std;
+ 
+#define INF 987654321
+#define forn(i,n) for(int i=0;i<(int)n;++i)
+#define formy(i,r,l) for(int i=r;i<=(int)l;++i)
+#define pii pair<int,int>
+#define sz(a) int((a).size())
+#define mp make_pair
+#define LL long long
+#define len(a) int((a).length())
+#define pb push_back
+#define LL long long
 
+#if 0
 void solution(int numOfOrder, string *orderArr) {
   // TODO: 이곳에 코드를 작성하세요. 추가로 필요한 함수와 전역변수를 선언해서 사용하셔도 됩니다.
   for(int i=0;i<numOfOrder;++i){
@@ -66,3 +85,54 @@ int main() {
   solution(inputData.numOfOrder, inputData.orderArr);
   return 0;
 }
+#endif
+
+// MIRACOM FIRST
+#if 1
+/*
+1. 3*3 arr
+2. 4,2,1 time
+3. sequential array about size
+4. Minimum time
+*/
+
+int answer , N;
+int size_[20];
+int time_[20];
+
+void solve(int temp,int idx){
+  if(idx == N){
+    answer=min(temp,answer);
+    return;
+  }
+  if(temp > answer) return;
+  int sizeFour=0, tempMaxTime=-1, FullSize=0;
+  while(idx < N){
+    tempMaxTime=max(tempMaxTime,time_[idx]);
+    FullSize+=size_[idx]; if(FullSize > 9) break;
+    if(size_[idx]==4){
+      sizeFour++; 
+      if(sizeFour > 1) break;
+    }
+    idx++;
+    solve(temp+tempMaxTime, idx);
+  }
+  return;
+}
+
+int main(){
+  int T;
+  cin>>T;
+  forn(test_case,T){
+    cin>>N;
+    answer=INF;
+    forn(i,20) size_[i]=0;
+    forn(i,20) time_[i]=0;
+    forn(i,N) cin>>size_[i] >> time_[i];
+    solve(0,0);
+    cout<<'#'<<test_case+1<<' '<<answer<<endl;
+  }
+  return 0;
+}
+
+#endif
