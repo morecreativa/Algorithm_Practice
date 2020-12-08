@@ -25,7 +25,6 @@ using namespace std;
 
 #if 0
 void solution(int numOfOrder, string *orderArr) {
-  // TODO: 이곳에 코드를 작성하세요. 추가로 필요한 함수와 전역변수를 선언해서 사용하셔도 됩니다.
   for(int i=0;i<numOfOrder;++i){
     string str=orderArr[i];
     for(int ii=0;ii!=str.length()-1;){
