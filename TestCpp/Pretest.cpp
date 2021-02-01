@@ -135,3 +135,34 @@ int main(){
 }
 
 #endif
+
+/*
+//Java File
+import java.util.Scanner;
+
+public class Test {
+    public static void main(String[] args) {
+        Scanner scan=new Scanner(System.in);
+        final int mod=1000000;
+        final int p=mod/10*15;
+        int arr[]=new int[p]; 
+        arr[0]=0;
+        arr[1]=1;
+        System.out.println("For Finonacci");
+        System.out.print("From : "); long a=scan.nextLong();
+        System.out.print("To : "); long b=scan.nextLong();
+        
+        //Finding Pisano Period
+        for(int i=2; i<p;++i){
+            arr[i]=arr[i-1]+arr[i-2];
+            arr[i] %=mod;
+        }
+        //Count answer
+        long sum=0;
+        for(long x=0; x<=(b-a)%mod; ++x){
+            sum+=arr[(int)(a%mod + x)];
+        }
+        System.out.println("The answer is : " + sum);
+    }
+}
+*/
