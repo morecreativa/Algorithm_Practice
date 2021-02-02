@@ -166,3 +166,11 @@ public class Test {
     }
 }
 */
+
+1. material theme
+2. Prettier
+3. Rainbow Brackets
+4. material theme icons
+5. code Spell checker
+6. C compile Enviroment
+
