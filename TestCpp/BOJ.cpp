@@ -411,55 +411,54 @@ int solution(vector<string> BankNumber){
 
 #if
 
-[이친수]
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-■ 문제
-    이친수란 숫자를 +0- 2진법으로 표현한것으로 +는 2의N승을 더하고, 0은 0, -는 2의N을 뺀다. (ex> 5는 +0+ 또는   ++-으로 표현가능함)
-이친수는 0으로 시작할수 없음 (즉, +, -로 시작)
+public class Main {
+    static int T;
+    static int K, R;
+    public static void main(String[] args) throws IOException{
+        input();
+        // solve();
+    }
 
-    [입력값] 
-K = 이친수로 변경할 자연수
-R = 이친수로 변경시 가능한 자릿수
+    public static void input() throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st=new StringTokenizer(br.readLine());
 
-    예) K가 1이고 R이 50일 경우
-( + , -, 0 의 조합이 50개 가능)
-    +
-    +-
-+--
-+---
-....
-    +--- ... ---
+        T=Integer.parseInt(st.nextToken());
+        for(int i=0; i < T; ++i){
+            StringBuilder answer=new StringBuilder();
+            st=new StringTokenizer(br.readLine());
+            K=Math.abs(Integer.parseInt(st.nextToken()));
+            R=Integer.parseInt(st.nextToken());
+            answer.append('#').append(i+1).append(" ").append(R==0 ? 1 : solve(K, R));
+            System.out.println(answer);
+        }
+    }
+    
+    public static int solve(int num, int mul) {
+        String str = Integer.toBinaryString(num);
+        int i=1;
+        int countNumber=1;
+        int dp[]=new int[32];
 
-K (-20억 ~ 20억)이 주어졌을때 R (50~5000) 의 자리로 이친수를 만들수 있는 경우의 수를 계산하시오
-(테스트 입력 100개)
-
-■ 테스트케이스
-[입력]
-11
-    1 50
-    2 50
-    3 50
-    4 50
-    5 50
-    6 50
-    7 50
-    8 50
-    9 50
-    0 50
-    215 1000
-
-    [출력]
-    #1 50
-    #2 49
-    #3 97
-    #4 48
-    #5 143
-    #6 95
-    #7 142
-    #8 47
-    #9 187
-    #10 1
-    #11 28779+A1:N25
-
+        // start dp
+        dp[0] = mul - (str.length() - countNumber);
+        for (; i <= (str.length() - 1); ++i) {
+            if(i==(str.length()-1)){
+                dp[i]=(str.charAt(str.length()-1)-'0'==1) ? 
+                    dp[i-1]+mul-str.length() : dp[i-1];
+                break;
+            }
+            dp[i]=((str.charAt(i)-'0')==1) ? 
+                    dp[i-1]+mul-(str.length() - (++countNumber)) : 
+                    dp[i-1];
+        }
+        return dp[i];
+    }
+}
 
 #endif
