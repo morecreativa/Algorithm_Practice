@@ -416,49 +416,41 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main {
-    static int T;
-    static int K, R;
+public class pinary {  
+    static int T,K,R;
     public static void main(String[] args) throws IOException{
         input();
         // solve();
     }
-
+    
     public static void input() throws IOException{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st=new StringTokenizer(br.readLine());
 
         T=Integer.parseInt(st.nextToken());
-        for(int i=0; i < T; ++i){
-            StringBuilder answer=new StringBuilder();
+        for(int i=0; i<T; ++i){
             st=new StringTokenizer(br.readLine());
-            K=Math.abs(Integer.parseInt(st.nextToken()));
+            K=Integer.parseInt(st.nextToken());
             R=Integer.parseInt(st.nextToken());
-            answer.append('#').append(i+1).append(" ").append(R==0 ? 1 : solve(K, R));
-            System.out.println(answer);
+            System.out.println(K==0 ? 1:(solve(Integer.toBinaryString(K), R)));
         }
-    }
-    
-    public static int solve(int num, int mul) {
-        String str = Integer.toBinaryString(num);
-        int i=1;
-        int countNumber=1;
-        int dp[]=new int[32];
+        br.close();
 
-        // start dp
-        dp[0] = mul - (str.length() - countNumber);
-        for (; i <= (str.length() - 1); ++i) {
-            if(i==(str.length()-1)){
-                dp[i]=(str.charAt(str.length()-1)-'0'==1) ? 
-                    dp[i-1]+mul-str.length() : dp[i-1];
-                break;
+    }
+
+    public static int solve(String pinaryString, int mountAvailable) {
+        int ret=0;
+        for(int i=0;i<pinaryString.length(); ++i){
+            1. if(idx is '+') {
+                x+y -> x^-y^;
+                if(x^ >> 1) ret+=dp[x^ >> 1];
+                else ret+=solve((x^ >> 1) for string, mountAvailable-(i+1);
             }
-            dp[i]=((str.charAt(i)-'0')==1) ? 
-                    dp[i-1]+mul-(str.length() - (++countNumber)) : 
-                    dp[i-1];
+            2. else continue;
         }
-        return dp[i];
+        return ret;
     }
 }
+
 
 #endif
