@@ -411,46 +411,6 @@ int solution(vector<string> BankNumber){
 
 #if
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
-
-public class pinary {  
-    static int T,K,R;
-    public static void main(String[] args) throws IOException{
-        input();
-        // solve();
-    }
-    
-    public static void input() throws IOException{
-        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st=new StringTokenizer(br.readLine());
-
-        T=Integer.parseInt(st.nextToken());
-        for(int i=0; i<T; ++i){
-            st=new StringTokenizer(br.readLine());
-            K=Integer.parseInt(st.nextToken());
-            R=Integer.parseInt(st.nextToken());
-            System.out.println(K==0 ? 1:(solve(Integer.toBinaryString(K), R)));
-        }
-        br.close();
-
-    }
-
-    public static int solve(String pinaryString, int mountAvailable) {
-        int ret=0;
-        for(int i=0;i<pinaryString.length(); ++i){
-            1. if(idx is '+') {
-                x+y -> x^-y^;
-                if(x^ >> 1) ret+=dp[x^ >> 1];
-                else ret+=solve((x^ >> 1) for string, mountAvailable-(i+1);
-            }
-            2. else continue;
-        }
-        return ret;
-    }
-}
 
 
 #endif
