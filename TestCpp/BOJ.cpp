@@ -12,7 +12,7 @@ using namespace std;
 #define sz(a) int((a).size())
 #define ll long long
 #define len(a) int((a).length())
-
+ 
 int MAX_SIZE,cnt;
 vector<int> arr(1001);
 vector<int> answer;
