@@ -217,3 +217,85 @@ vector<int> solution(vector<string> info, vector<string> query)
 
     return answer;
 }
+
+//4
+#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define INF 987654321
+#define forn(i, n) for (int i = 0; i < (int)n; ++i)
+#define formy(i, r, l) for (int i = r; i <= (int)l; ++i)
+#define sz(a) int((a).size())
+#define len(a) int((a).length())
+#define all(v) (v).begin(), (v).end()
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+
+int solution(int n, int s, int a, int b, vector<vector<int>> fares) {
+    int answer=0x3f3f3f3f;
+    --s, --a, --b;
+    int dist[201][201]; memset(dist, 0x3f, sizeof(dist));
+    for(int i=0; i<n; ++i) dist[i][i]=0;
+    for(int i=0; i<sz(fares); ++i){
+        int p=fares[i][0] -1, q=fares[i][1]-1;
+        dist[p][q]=dist[q][p]=fares[i][2];
+    }
+
+    for(int k=0; k<n; ++k)
+        for(int i=0; i<n; ++i)
+            for(int j=0; j<n; ++j)
+                dist[i][j]=min(dist[i][j], dist[i][k]+dist[k][j]);
+    
+    for(int i=0; i<n; ++i)
+        answer=min<ll>(answer, (ll)dist[s][i]+dist[i][a]+dist[i][b]);
+    return answer;
+}
+
+struct Node{
+    int cost, pre, src, dest;
+    Node(int cost, int pre, int src, int dest) : cost(cost), pre(pre), src(src), dest(dest) {}
+};
+
+struct NodeCompare{
+    bool operator()(const Node &a, const Node &b){
+        return a.cost + a.pre > b.cost + b.pre;
+    }
+};
+
+void dijkstra(const int &n, const int &start, const vector<vector<int>>& nodes, vector<int>& costs){
+    priority_queue<Node, vector<Node>, NodeCompare> pq;
+    Node now(0,0,start,start);
+    pq.push(now);
+    while(!pq.empty()){
+        now=pq.top();
+        pq.pop();
+        if(costs[now.dest]!=-1) continue;
+        costs[now.dest] = ((costs[now.src] < 0) ? 0:costs[now.src]) + now.cost;
+        for(int i=1; i<=n; ++i){
+            if(now.dest != i && nodes[now.dest][i] != -1 && costs[i]==-1)
+                pq.push(Node(nodes[now.dest][i],costs[now.dest], now.dest, i));
+        }
+    }
+}
+
+int solution2(int n, int s, int a, int b, vector<vector<int>> fares){
+    vector<vector<int>> nodes(n+1, vector<int>(n+1,-1));
+    vector<int> a_cost(n+1, -1), b_cost(n+1,-1), s_cost(n+1,-1);
+    for(int i=1; i<=n; ++i) nodes[i][i]=0;
+    for(auto fare : fares)
+        nodes[fare[0]][fare[1]] = fare[2], nodes[fare[1]][fare[0]]=fare[2];
+    dijkstra(n, a, nodes, a_cost);
+    dijkstra(n, b, nodes, b_cost);
+    dijkstra(n, s, nodes, s_cost);
+
+    int answer=INF;
+    for(int i=1; i<=n; ++i){
+        if((a_cost[i] != -1) && (b_cost[i]!= -1) && (s_cost[i] != -1)){
+            answer=min(answer, a_cost[i] + b_cost[i] + s_cost[i]);
+        }
+    }
+    return answer;
+}
